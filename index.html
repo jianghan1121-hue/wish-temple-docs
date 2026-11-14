@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虚拟祈福网站 · 文档库</title>
+<style>
+  :root{
+    --bg:#FAF8F5; --card:#FFFFFF; --ink:#2B2B2B; --ink-soft:#6B6B6B; --line:#E7E1D9;
+    --brand:#8B4513; --brand-soft:#F4EEE6;
+    --ok:#2E7D32; --warn:#A96200; --muted:#8A8A8A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.75;
+    min-height:100vh;display:flex;justify-content:center;padding:56px 20px;
+  }
+  .wrap{width:100%;max-width:720px}
+  header{border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:32px}
+  h1{font-size:1.6rem;font-weight:600;letter-spacing:-0.01em}
+  .tagline{color:var(--ink-soft);font-size:.9rem;margin-top:8px}
+  .meta{color:var(--ink-soft);font-size:.8rem;margin-top:10px}
+  .meta span+span::before{content:"·";margin:0 8px;color:#C9C0B4}
+  h2{font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin:32px 0 10px}
+  h2:first-of-type{margin-top:0}
+  .list{border-top:1px solid var(--line)}
+  .row{
+    display:flex;align-items:baseline;gap:12px;padding:15px 2px;
+    border-bottom:1px solid var(--line);text-decoration:none;color:var(--ink);
+  }
+  .row:hover{background:var(--brand-soft)}
+  .row .name{font-weight:500;font-size:.95rem;flex:1}
+  .row .desc{color:var(--ink-soft);font-size:.82rem;flex:1.4}
+  .row .fmt{color:var(--muted);font-size:.76rem;font-family:"SF Mono",Consolas,monospace;white-space:nowrap}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;flex:0 0 7px;margin-top:9px}
+  .dot-ok{background:var(--ok)} .dot-warn{background:var(--warn)} .dot-muted{background:var(--muted)}
+  .note{border-left:2px solid var(--brand);background:var(--card);padding:14px 18px;margin:28px 0 0;font-size:.85rem;color:var(--ink-soft)}
+  footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.78rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer a{color:var(--brand);text-decoration:none;border-bottom:1px solid #D8C6B4}
+  @media (max-width:600px){
+    body{padding:28px 14px}
+    .row{flex-wrap:wrap;gap:4px}
+    .row .desc{flex:1 0 100%;padding-left:19px}
+    .row .fmt{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>虚拟祈福网站 · 文档库</h1>
+    <div class="tagline">A Place for Wishes and Kindness — 一个寄托愿望、传递善意的地方</div>
+    <div class="meta">
+      <span>面向海外市场 · 英文优先</span><span>产品口径以 PRD V1.0 为准</span><span>2026-11-14</span>
+    </div>
+  </header>
+
+  <h2>当前文档</h2>
+  <div class="list">
+    <a class="row" href="虚拟祈福网站_关键用户流程图_v2.html">
+      <span class="dot dot-ok"></span>
+      <span class="name">关键用户流程图</span>
+      <span class="desc">三条主路径 · 30 分钟香火 · 无支付</span>
+      <span class="fmt">v2 · html</span>
+    </a>
+    <a class="row" href="虚拟祈福网站_页面结构_信息架构_v2.html">
+      <span class="dot dot-ok"></span>
+      <span class="name">页面结构 / 信息架构</span>
+      <span class="desc">9 个页面 · 分区与字段规则</span>
+      <span class="fmt">v2 · html</span>
+    </a>
+    <a class="row" href="https://github.com/jianghan1121-hue/wish-temple-docs/blob/main/虚拟祈福网站_MVP产品需求与开发规范_v1.md">
+      <span class="dot dot-ok"></span>
+      <span class="name">MVP 产品需求与开发规范</span>
+      <span class="desc">15 章完整 PRD，事实源</span>
+      <span class="fmt">v1 · md</span>
+    </a>
+    <a class="row" href="https://github.com/jianghan1121-hue/wish-temple-docs/blob/main/README.md">
+      <span class="dot dot-ok"></span>
+      <span class="name">文档库说明</span>
+      <span class="desc">清单、PRD 速览、维护约定</span>
+      <span class="fmt">README</span>
+    </a>
+  </div>
+
+  <h2>旧版（已过期，仅存档）</h2>
+  <div class="list">
+    <a class="row" href="虚拟祈福网站_关键用户流程图_v1.html">
+      <span class="dot dot-warn"></span>
+      <span class="name">关键用户流程图</span>
+      <span class="desc">含付费高级香、添香、多殿堂，与 PRD 冲突</span>
+      <span class="fmt">v1 · html</span>
+    </a>
+    <a class="row" href="虚拟祈福网站_页面结构_信息架构_v1.html">
+      <span class="dot dot-warn"></span>
+      <span class="name">页面结构 / 信息架构</span>
+      <span class="desc">含殿堂选择页、商品页、功德箱</span>
+      <span class="fmt">v1 · html</span>
+    </a>
+    <a class="row" href="虚拟祈福网站_文档索引_v1.html">
+      <span class="dot dot-muted"></span>
+      <span class="name">文档索引</span>
+      <span class="desc">旧入口页，已被本页取代</span>
+      <span class="fmt">v1 · html</span>
+    </a>
+    <a class="row" href="https://github.com/jianghan1121-hue/wish-temple-docs/blob/main/虚拟祈福网站_产品逻辑框架_v1.md">
+      <span class="dot dot-warn"></span>
+      <span class="name">产品逻辑框架</span>
+      <span class="desc">探索稿，文内已标注 5 处被 PRD 取代</span>
+      <span class="fmt">v1 · md</span>
+    </a>
+    <a class="row" href="https://github.com/jianghan1121-hue/wish-temple-docs/blob/main/虚拟祈福网站_关键用户流程图_v1.md">
+      <span class="dot dot-warn"></span>
+      <span class="name">关键用户流程图（md）</span>
+      <span class="desc">探索稿，文内已标注 3 处被 PRD 取代</span>
+      <span class="fmt">v1 · md</span>
+    </a>
+    <a class="row" href="https://github.com/jianghan1121-hue/wish-temple-docs/blob/main/虚拟祈福网站_页面结构_信息架构_v1.md">
+      <span class="dot dot-warn"></span>
+      <span class="name">页面结构 / 信息架构（md）</span>
+      <span class="desc">探索稿，文内已标注 3 处被 PRD 取代</span>
+      <span class="fmt">v1 · md</span>
+    </a>
+  </div>
+
+  <div class="note">
+    Markdown 文件在本站不直接渲染，点击会跳到 GitHub 原文页；本页的两个 v2 文件是可直接阅读的网页版。
+  </div>
+
+  <footer>
+    <span>wish-temple-docs</span>
+    <a href="https://github.com/jianghan1121-hue/wish-temple-docs">GitHub 仓库</a>
+  </footer>
+
+</div>
+</body>
+</html>

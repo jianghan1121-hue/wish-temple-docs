@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虚拟祈福网站 · 关键用户流程图 v2</title>
+<style>
+  :root{
+    --bg:#FAF8F5; --card:#FFFFFF; --ink:#2B2B2B; --ink-soft:#6B6B6B; --line:#E7E1D9;
+    --brand:#8B4513; --brand-soft:#F4EEE6;
+    --ok:#2E7D32; --warn:#A96200; --muted:#8A8A8A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.75;padding:40px 20px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  header h1{font-size:1.55rem;font-weight:600;letter-spacing:-0.01em}
+  .meta{color:var(--ink-soft);font-size:.85rem;margin-top:10px}
+  .meta span+span::before{content:"·";margin:0 8px;color:#C9C0B4}
+  h2{font-size:1.12rem;font-weight:600;margin:40px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:.97rem;font-weight:600;margin:22px 0 6px}
+  p,li{font-size:.94rem}
+  ul,ol{padding-left:22px;margin:10px 0 16px}
+  li{margin-bottom:4px}
+  code{font-family:"SF Mono","Fira Code",Consolas,monospace;font-size:.86em;background:var(--brand-soft);padding:1px 5px;border-radius:3px}
+  .flow{
+    background:var(--brand-soft);border:1px solid var(--line);border-radius:6px;padding:20px 22px;
+    font-family:"SF Mono","Fira Code",Consolas,monospace;font-size:.8rem;line-height:1.9;
+    white-space:pre-wrap;overflow-x:auto;color:#4A3728;margin:14px 0 22px;
+  }
+  table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:.9rem}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{font-weight:600;color:var(--brand);background:var(--brand-soft)}
+  .card{border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin:14px 0;background:var(--card)}
+  .note{border-left:2px solid var(--brand);background:var(--card);padding:13px 18px;margin:16px 0;font-size:.88rem;color:var(--ink-soft)}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+  .dot-ok{background:var(--ok)} .dot-warn{background:var(--warn)} .dot-muted{background:var(--muted)}
+  .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:3px;border:1px solid var(--line);color:var(--ink-soft);margin-right:6px;vertical-align:1px}
+  .tag-p0{color:var(--brand);border-color:#D8C6B4;background:var(--brand-soft)}
+  .tag-del{color:var(--muted)}
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  a{color:var(--brand);text-decoration:none;border-bottom:1px solid #D8C6B4}
+  a:hover{border-bottom-color:var(--brand)}
+  @media (max-width:600px){
+    body{padding:24px 14px}
+    header h1{font-size:1.3rem}
+    .flow{font-size:.72rem;padding:14px 16px}
+    th,td{padding:8px 9px;font-size:.84rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>虚拟祈福网站 · 关键用户流程图</h1>
+    <div class="meta">
+      <span>v2</span><span>对齐 PRD V1.0 第七章</span><span>更新于 2026-11-14</span>
+    </div>
+  </header>
+
+  <div class="note">
+    V1.0 只有三条路径：<strong>为自己祈愿</strong>、<strong>保住/找回记录</strong>、<strong>为他人送祝福</strong>。全程无支付环节，无殿堂选择，香火固定 30 分钟。
+  </div>
+
+  <h2>一、总览流程</h2>
+  <div class="flow">【进入】Home
+        ↓ Enter the Temple
+【Temple 主殿】香炉 · 香火 · 柔和光
+        │
+        ├─→ Light Incense / Make a Wish
+        │        ↓
+        │   填写愿望（≤200 字，无需姓名、无需邮箱）
+        │        ↓
+        │   确认祈愿 → 创建 Wish + Incense（服务端时间）
+        │        ↓
+        │   Incense 页：30:00 倒计时（ends_at − now）
+        │        ↓
+        │   用户关闭页面 —— 香火按 ends_at 继续，不依赖浏览器
+        │
+        ├─→ Send Kindness
+        │        ↓
+        │   选对象（5 类）→ 选预设祝福语 → Send Blessing → 成功反馈
+        │
+        └─→ My Wishes
+                 ↓
+            愿望列表（愿望 / 点香时间 / 香火状态 / 还愿状态）
+                 ├─→ Protect My Wishes → 邮箱验证 → 绑定成功
+                 └─→ Fulfill a Wish → 标记实现 + 可选感言
+
+【回访】再次进入 → My Wishes → 剩余时间由 ends_at 实时计算
+【到期】ends_at ≤ now → 香火 Burning → Completed（自动，无需用户操作）
+【找回】换设备 / 清缓存 → 用已验证邮箱登录 → 原记录全部回来</div>
+
+  <h2>二、三条主流程</h2>
+
+  <h3>流程 1 · 个人祈愿（主路径）</h3>
+  <div class="card">
+    <ol>
+      <li>打开 Home → 点击 <strong>Enter the Temple</strong></li>
+      <li>进入主殿，看到香炉与正在燃烧的香火</li>
+      <li>点击 <strong>Light Incense</strong>，进入 Make a Wish</li>
+      <li>输入愿望（默认私密，不要求姓名与邮箱）</li>
+      <li>确认祈愿 → 系统创建愿望记录 + 香火记录</li>
+      <li>跳转 Incense 页，显示 30:00 倒计时与状态 Burning</li>
+      <li>用户离开网站，香火继续燃烧</li>
+      <li>再次访问 → My Wishes 查看状态</li>
+      <li>愿望实现后 → Fulfill a Wish 完成还愿</li>
+    </ol>
+  </div>
+
+  <h3>流程 2 · 保存与找回记录（可选）</h3>
+  <div class="card">
+    <ol>
+      <li>进入 My Wishes</li>
+      <li>点击 <strong>Protect My Wishes</strong></li>
+      <li>输入邮箱 → 系统发送带有效期的验证链接</li>
+      <li>点击邮件链接完成验证</li>
+      <li>邮箱与原有匿名身份关联，已有愿望全部保留</li>
+      <li>换设备后通过邮箱验证找回记录</li>
+    </ol>
+  </div>
+  <div class="note">
+    <span class="dot dot-warn"></span><strong>必须提示的风险</strong>：未绑定邮箱的匿名用户，清除浏览器数据或更换设备后可能无法找回记录。此提示需在 My Wishes 与绑定入口处清楚但不吓人地说明。
+  </div>
+
+  <h3>流程 3 · 免费送祝福</h3>
+  <div class="card">
+    <ol>
+      <li>点击 <strong>Send Kindness</strong></li>
+      <li>选择对象：Family / Friends / Someone in Need / A Stranger / Everyone</li>
+      <li>选择一条预设祝福语（不可自由输入）</li>
+      <li>点击 <strong>Send Blessing</strong></li>
+      <li>显示成功反馈，无需注册、付费或对方回应</li>
+    </ol>
+  </div>
+
+  <h2>三、香火时间机制（30 分钟）</h2>
+  <table>
+    <tr><th style="width:26%">项目</th><th>规则</th></tr>
+    <tr><td>点燃</td><td>记录 <code>started_at</code>，同时算出 <code>ends_at = started_at + 30min</code></td></tr>
+    <tr><td>倒计时</td><td>每次加载都按 <code>ends_at − 服务器当前时间</code> 计算，浏览器只负责显示</td></tr>
+    <tr><td>关闭页面</td><td>不影响计算；再次访问时剩余时间自动正确</td></tr>
+    <tr><td>跨设备</td><td>同一身份下结果一致（取决于后端时间，不看本地时钟）</td></tr>
+    <tr><td>状态流转</td><td><span class="dot dot-ok"></span>Burning → <span class="dot dot-muted"></span>Completed，到期自动更新，不可回退</td></tr>
+    <tr><td>V1.0 不做</td><td>不做香等级、不做付费延长、不做他人添香、不做多柱同时燃烧</td></tr>
+  </table>
+
+  <h2>四、异常与边界</h2>
+  <table>
+    <tr><th style="width:30%">情况</th><th>处理方式</th></tr>
+    <tr><td>匿名凭据丢失</td><td>无法自动恢复；引导用已验证邮箱找回，或重新开始</td></tr>
+    <tr><td>邮箱验证链接过期</td><td>允许重新发送，令牌带有效期，旧令牌作废</td></tr>
+    <tr><td>愿望超长 / 空白</td><td>前端限制长度并提示，后端二次校验；空内容不允许提交</td></tr>
+    <tr><td>重复点击点燃</td><td>按钮提交后置灰，服务端幂等，避免生成两条香火记录</td></tr>
+    <tr><td>网络中断</td><td>状态以服务端为准，重新进入即恢复到正确剩余时间</td></tr>
+    <tr><td>内容违规</td><td>V1.0 愿望私密、不公开；后续开放公开内容前需先建审核机制（PRD 第十二章）</td></tr>
+  </table>
+
+  <h2>五、与 v1 的差异</h2>
+  <table>
+    <tr><th style="width:30%">v1 中的设计</th><th>v2 / PRD V1.0 的处理</th></tr>
+    <tr><td><span class="tag tag-del">殿堂选择页</span>平安殿 / 财神殿 / 姻缘殿 / 文昌殿</td><td>删除。V1.0 只有单一主殿，多殿堂列入 V1.5+</td></tr>
+    <tr><td><span class="tag tag-del">高级香（付费）</span>更长燃烧、更好位置</td><td>删除。只有一种 30 分钟香，不做等级与付费延长</td></tr>
+    <tr><td><span class="tag tag-del">添香支付</span>他人付费延长你的香</td><td>移出 V1.0，属 V2.0「为陌生人添香」</td></tr>
+    <tr><td><span class="tag tag-del">贡品 / 符咒 / 功德箱 / 木鱼念珠</span></td><td>移出 V1.0；木鱼念珠列入 V1.5 体验增强</td></tr>
+    <tr><td><span class="tag tag-del">进阶还愿（付费）</span></td><td>删除。还愿只有一种，免费，可写可选感言</td></tr>
+    <tr><td>香火「剩余 3 小时」等长时长</td><td>统一为 30 分钟，由服务端计算</td></tr>
+    <tr><td><span class="tag tag-p0">邮箱绑定</span>v1 未提及</td><td>新增 P0：可选绑定，用于跨设备找回记录</td></tr>
+    <tr><td><span class="tag tag-p0">30 分钟香火</span>v1 未提及</td><td>新增 P0：唯一香火时长与状态机</td></tr>
+  </table>
+
+  <footer>
+    <span>虚拟祈福网站 · 关键用户流程图 v2</span>
+    <span>依据 PRD V1.0 第 3、4、5、7 章 · 2026-11-14</span>
+  </footer>
+
+</div>
+</body>
+</html>

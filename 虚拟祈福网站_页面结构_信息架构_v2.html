@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>虚拟祈福网站 · 页面结构 / 信息架构 v2</title>
+<style>
+  :root{
+    --bg:#FAF8F5; --card:#FFFFFF; --ink:#2B2B2B; --ink-soft:#6B6B6B; --line:#E7E1D9;
+    --brand:#8B4513; --brand-soft:#F4EEE6;
+    --ok:#2E7D32; --warn:#A96200; --muted:#8A8A8A;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.75;padding:40px 20px;
+  }
+  .wrap{max-width:880px;margin:0 auto}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  header h1{font-size:1.55rem;font-weight:600;letter-spacing:-0.01em}
+  .meta{color:var(--ink-soft);font-size:.85rem;margin-top:10px}
+  .meta span+span::before{content:"·";margin:0 8px;color:#C9C0B4}
+  h2{font-size:1.12rem;font-weight:600;margin:40px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+  h3{font-size:.97rem;font-weight:600;margin:22px 0 6px}
+  p,li{font-size:.94rem}
+  ul,ol{padding-left:22px;margin:10px 0 16px}
+  li{margin-bottom:4px}
+  code{font-family:"SF Mono","Fira Code",Consolas,monospace;font-size:.86em;background:var(--brand-soft);padding:1px 5px;border-radius:3px}
+  .tree{
+    background:var(--brand-soft);border:1px solid var(--line);border-radius:6px;padding:20px 22px;
+    font-family:"SF Mono","Fira Code",Consolas,monospace;font-size:.8rem;line-height:1.9;
+    white-space:pre-wrap;overflow-x:auto;color:#4A3728;margin:14px 0 22px;
+  }
+  table{width:100%;border-collapse:collapse;margin:14px 0 22px;font-size:.9rem}
+  th,td{border-bottom:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+  th{font-weight:600;color:var(--brand);background:var(--brand-soft)}
+  .card{border:1px solid var(--line);border-radius:6px;padding:18px 20px;margin:14px 0;background:var(--card)}
+  .note{border-left:2px solid var(--brand);background:var(--card);padding:13px 18px;margin:16px 0;font-size:.88rem;color:var(--ink-soft)}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:1px}
+  .dot-ok{background:var(--ok)} .dot-warn{background:var(--warn)} .dot-muted{background:var(--muted)}
+  .tag{display:inline-block;font-size:.72rem;font-weight:600;padding:1px 7px;border-radius:3px;border:1px solid var(--line);color:var(--ink-soft);margin-right:6px;vertical-align:1px}
+  .tag-p0{color:var(--brand);border-color:#D8C6B4;background:var(--brand-soft)}
+  .tag-del{color:var(--muted);text-decoration:line-through}
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-soft);font-size:.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  a{color:var(--brand);text-decoration:none;border-bottom:1px solid #D8C6B4}
+  a:hover{border-bottom-color:var(--brand)}
+  @media (max-width:600px){
+    body{padding:24px 14px}
+    header h1{font-size:1.3rem}
+    .tree{font-size:.72rem;padding:14px 16px}
+    th,td{padding:8px 9px;font-size:.84rem}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>虚拟祈福网站 · 页面结构 / 信息架构</h1>
+    <div class="meta">
+      <span>v2</span><span>对齐 PRD V1.0 第六章</span><span>更新于 2026-11-14</span>
+    </div>
+  </header>
+
+  <div class="note">
+    V1.0 共 <strong>9 个页面</strong>：7 个主流程页面 + 2 个辅助页面。无殿堂选择页、无商品页、无支付流程。
+  </div>
+
+  <h2>一、页面层级</h2>
+  <div class="tree">Home  /
+├── Temple  /temple                 主殿（核心场景）
+│   ├── Make a Wish  /wish/new      祈愿输入
+│   ├── Incense  /incense/:id       香火 30 分钟状态
+│   ├── My Wishes  /my/wishes       个人记录
+│   │   ├── Fulfill a Wish  /wish/:id/fulfill   还愿
+│   │   └── Protect My Wishes       邮箱绑定（弹层）
+│   └── Send Kindness  /kindness    免费送祝福
+│
+├── Verify Email  /verify           邮箱验证落地页
+└── Legal  /legal                   隐私政策与使用条款</div>
+
+  <h2>二、页面清单</h2>
+  <table>
+    <tr>
+      <th style="width:22%">页面</th><th style="width:24%">路径</th><th>职责</th><th style="width:12%">优先级</th>
+    </tr>
+    <tr><td>Home</td><td><code>/</code></td><td>说明网站性质，提供两个入口：进入主殿 / 送祝福</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Temple</td><td><code>/temple</code></td><td>主殿场景，承载点香、送祝福、我的记录三个入口</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Make a Wish</td><td><code>/wish/new</code></td><td>愿望输入与隐私提示，提交后同时创建香火</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Incense</td><td><code>/incense/:id</code></td><td>显示 30 分钟倒计时与 Burning / Completed 状态</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>My Wishes</td><td><code>/my/wishes</code></td><td>愿望与香火记录列表，含还愿与邮箱绑定入口</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Fulfill a Wish</td><td><code>/wish/:id/fulfill</code></td><td>标记愿望实现，可写还愿感言</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Send Kindness</td><td><code>/kindness</code></td><td>选对象 + 选预设祝福语，免费发送</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Verify Email</td><td><code>/verify</code></td><td>邮箱验证落地页，成功后回到 My Wishes</td><td><span class="tag tag-p0">P0</span></td></tr>
+    <tr><td>Legal</td><td><code>/legal</code></td><td>隐私政策 + 使用条款 + 虚拟体验声明</td><td><span class="tag tag-p0">P0</span></td></tr>
+  </table>
+
+  <h2>三、主殿分区（Temple）</h2>
+  <table>
+    <tr><th style="width:24%">区域</th><th>内容</th><th style="width:26%">说明</th></tr>
+    <tr><td>主视觉区</td><td>传统建筑轮廓、香炉、灯笼、柔和光影</td><td>抽象文化符号，不出现具象佛像（PRD 1.2）</td></tr>
+    <tr><td>香火区</td><td>自己正在燃烧的香（V1.0 不展示他人的香）</td><td>倒计时与状态可见</td></tr>
+    <tr><td>操作区</td><td>Light Incense · Send Kindness · My Wishes</td><td>三个入口，无付费按钮</td></tr>
+    <tr><td>低声压区域</td><td>留白、呼吸感，弱动效</td><td>避免信息过载与焦虑感</td></tr>
+  </table>
+
+  <h2>四、关键页面要素</h2>
+
+  <h3>Make a Wish</h3>
+  <table>
+    <tr><th style="width:26%">要素</th><th>规则</th></tr>
+    <tr><td>输入框</td><td>纯文本，≤200 字，必填，前后端各校验一次</td></tr>
+    <tr><td>身份</td><td>不需要姓名、不需要邮箱、不需要密码</td></tr>
+    <tr><td>可见性</td><td>默认私密，不公开、不进入任何列表</td></tr>
+    <tr><td>提示文案</td><td>说明愿望仅自己可见；未绑定邮箱的记录可能无法找回</td></tr>
+    <tr><td>按钮</td><td>确认祈愿（主）/ 取消（次）</td></tr>
+  </table>
+
+  <h3>Incense</h3>
+  <ul>
+    <li>香火视觉 + 起始时间 + 剩余倒计时 + 当前状态</li>
+    <li>返回主殿入口</li>
+    <li>剩余时间由服务端 <code>ends_at</code> 计算，不使用浏览器计时器累加</li>
+  </ul>
+
+  <h3>My Wishes</h3>
+  <table>
+    <tr><th style="width:26%">模块</th><th>内容</th></tr>
+    <tr><td>愿望卡列表</td><td>愿望内容、点香时间、香火状态、还愿状态与时间</td></tr>
+    <tr><td>还愿入口</td><td>每条记录可进入 Fulfill a Wish</td></tr>
+    <tr><td>Protect My Wishes</td><td>未绑定时的邮箱绑定入口；已绑定显示邮箱尾号</td></tr>
+    <tr><td>删除</td><td>支持删除单条记录与清空账号数据（PRD 3.5）</td></tr>
+  </table>
+
+  <h3>Send Kindness</h3>
+  <ul>
+    <li>对象选择：Family / Friends / Someone in Need / A Stranger / Everyone</li>
+    <li>祝福语：7 条预设，单选，不可自由输入</li>
+    <li>发送后即时反馈；不显示排行榜、不显示被祝福次数竞争</li>
+  </ul>
+
+  <h2>五、V1.0 删除与延后清单</h2>
+  <table>
+    <tr><th style="width:34%">v1 页面 / 模块</th><th>处置</th></tr>
+    <tr><td><span class="tag tag-del">殿堂选择页</span></td><td>删除，V1.5+ 再议多殿堂</td></tr>
+    <tr><td><span class="tag tag-del">添香确认页</span></td><td>移出 V1.0，属 V2.0「为陌生人添香」</td></tr>
+    <tr><td><span class="tag tag-del">香火 / 商品选择页</span></td><td>删除，V1.0 无商品与支付</td></tr>
+    <tr><td><span class="tag tag-del">贡品 / 符咒 / 功德箱</span></td><td>删除，未来方向见 PRD 10.2</td></tr>
+    <tr><td><span class="tag tag-del">高级木鱼 / 念珠</span></td><td>移出 V1.0，列入 V1.5 体验增强</td></tr>
+    <tr><td><span class="tag tag-del">设置页（是否接受添香等）</span></td><td>删除，无添香功能后无对应设置项</td></tr>
+  </table>
+
+  <h2>六、信息架构原则</h2>
+  <ol>
+    <li><strong>层级最浅</strong>：主殿直达三个入口，任何核心动作不超过两跳。</li>
+    <li><strong>状态可见</strong>：香火的剩余时间与状态在每个相关页面都能看到。</li>
+    <li><strong>无支付干扰</strong>：V1.0 不出现任何价格、购买、升级字样。</li>
+    <li><strong>克制留白</strong>：单屏信息量小，留白优先于装饰。</li>
+    <li><strong>移动端优先</strong>：按钮可点区域足够大，输入框在手机上不遮挡。</li>
+    <li><strong>隐私前置</strong>：愿望默认私密，邮箱绑定完全自愿。</li>
+  </ol>
+
+  <footer>
+    <span>虚拟祈福网站 · 页面结构 / 信息架构 v2</span>
+    <span>依据 PRD V1.0 第 3、5、6 章 · 2026-11-14</span>
+  </footer>
+
+</div>
+</body>
+</html>
