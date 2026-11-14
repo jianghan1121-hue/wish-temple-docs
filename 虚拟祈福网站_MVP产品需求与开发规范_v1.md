@@ -1,6 +1,6 @@
-# A Place for Wishes and Kindness
-# 全球虚拟祈福网站
-## MVP 产品需求与开发规范 V1.0
+# 全球虚拟祈福网站 · MVP 产品需求与开发规范 V1.0
+
+> **A Place for Wishes and Kindness** — 一个寄托愿望、传递善意的地方
 
 **文档版本：** V1.0 工作修订版  
 **文档状态：** 核心产品规则已确定，技术方案待确定  
